@@ -5,21 +5,25 @@ Creates a daily markdown file in the current week's folder with format `YYYY_MM_
 ```bash
 #!/bin/bash
 
-# Get current date
-current_date=$(date +%Y-%m-%d)
+# Set locale to avoid Chinese date format issues
+export LC_ALL=C
 
-# Get the Monday of current week (start of week)
-monday=$(date -j -f "%Y-%m-%d" "$current_date" -v-$(date -j -f "%Y-%m-%d" "$current_date" +%u)d -v+1d +%Y-%m-%d)
+# Get day of week (1=Monday, 7=Sunday)
+dow=$(date +%u)
 
-# Get the Sunday of current week (end of week)
-sunday=$(date -j -f "%Y-%m-%d" "$monday" -v+6d +%Y-%m-%d)
+# Calculate days to Monday (if today is Monday, days_to_monday=0)
+days_to_monday=$((dow - 1))
 
-# Format folder name: YYYY_MMDD1-MMDD2
-monday_formatted=$(date -j -f "%Y-%m-%d" "$monday" +%m%d)
-sunday_formatted=$(date -j -f "%Y-%m-%d" "$sunday" +%m%d)
-year=$(date -j -f "%Y-%m-%d" "$monday" +%Y)
+# Get Monday's date using simple date arithmetic
+monday=$(date -v-${days_to_monday}d +%Y-%m-%d)
+monday_formatted=$(date -v-${days_to_monday}d +%m%d)
+monday_year=$(date -v-${days_to_monday}d +%Y)
 
-folder_name="${year}_${monday_formatted}-${sunday_formatted}"
+# Get Sunday's date (6 days after Monday)
+sunday_days=$((6 - days_to_monday))
+sunday_formatted=$(date -v+${sunday_days}d +%m%d)
+
+folder_name="${monday_year}_${monday_formatted}-${sunday_formatted}"
 
 # Create weeks directory and weekly folder if they don't exist
 mkdir -p "weeks/$folder_name"

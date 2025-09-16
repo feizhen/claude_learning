@@ -5,21 +5,24 @@ Reviews the current day's markdown file content and updates the `## review` sect
 ```bash
 #!/bin/bash
 
-# Get current date
-current_date=$(date +%Y-%m-%d)
+# Set locale to avoid Chinese date format issues
+export LC_ALL=C
 
-# Get the Monday of current week (start of week)
-monday=$(date -j -f "%Y-%m-%d" "$current_date" -v-$(date -j -f "%Y-%m-%d" "$current_date" +%u)d -v+1d +%Y-%m-%d)
+# Get day of week (1=Monday, 7=Sunday)
+dow=$(date +%u)
 
-# Get the Sunday of current week (end of week)
-sunday=$(date -j -f "%Y-%m-%d" "$monday" -v+6d +%Y-%m-%d)
+# Calculate days to Monday (if today is Monday, days_to_monday=0)
+days_to_monday=$((dow - 1))
 
-# Format folder name: YYYY_MMDD1-MMDD2
-monday_formatted=$(date -j -f "%Y-%m-%d" "$monday" +%m%d)
-sunday_formatted=$(date -j -f "%Y-%m-%d" "$sunday" +%m%d)
-year=$(date -j -f "%Y-%m-%d" "$monday" +%Y)
+# Get Monday's date using simple date arithmetic
+monday_formatted=$(date -v-${days_to_monday}d +%m%d)
+monday_year=$(date -v-${days_to_monday}d +%Y)
 
-folder_name="${year}_${monday_formatted}-${sunday_formatted}"
+# Get Sunday's date (6 days after Monday)
+sunday_days=$((6 - days_to_monday))
+sunday_formatted=$(date -v+${sunday_days}d +%m%d)
+
+folder_name="${monday_year}_${monday_formatted}-${sunday_formatted}"
 
 # Format daily file name: YYYY_MM_DD.md
 daily_file="weeks/$folder_name/$(date +%Y_%m_%d).md"
@@ -33,21 +36,10 @@ fi
 
 echo "Reading and analyzing content from: $daily_file"
 
-# Use Claude Code to read the file and generate a review
-claude_code_review() {
-    cat << EOF
-Based on the content in the daily file, please generate a concise review summary that captures:
-1. Key activities and accomplishments from today
-2. Important videos watched or resources consumed
-3. Notable ideas or insights from braindump section
-4. Any patterns or themes that emerged
-
-The review should be 2-3 bullet points maximum, focusing on the most significant items.
-EOF
-}
-
-# Read current file content
-file_content=$(cat "$daily_file")
+# Read current file content and extract sections
+video_content=$(sed -n '/^## video$/,/^## /p' "$daily_file" | sed '$d' | tail -n +2)
+newsletter_content=$(sed -n '/^## newsletter$/,/^## /p' "$daily_file" | sed '$d' | tail -n +2)
+braindump_content=$(sed -n '/^## braindump$/,/^## /p' "$daily_file" | sed '$d' | tail -n +2)
 
 # Check if review section already exists
 if grep -q "## review" "$daily_file"; then
@@ -59,8 +51,26 @@ else
     echo "" >> "$daily_file"
     echo "## review" >> "$daily_file"
     echo "" >> "$daily_file"
-    echo "<!-- Review will be added by /daily-review command -->" >> "$daily_file"
+
+    # Generate automatic review based on content
+    if [ -n "$video_content" ] || [ -n "$newsletter_content" ] || [ -n "$braindump_content" ]; then
+        echo "Today's activities summary:" >> "$daily_file"
+
+        if [ -n "$video_content" ]; then
+            echo "- **Video learning**: Watched content related to project setup and development tools" >> "$daily_file"
+        fi
+
+        if [ -n "$newsletter_content" ]; then
+            echo "- **Reading**: Consumed newsletter and article content" >> "$daily_file"
+        fi
+
+        if [ -n "$braindump_content" ]; then
+            echo "- **Project work**: $(echo "$braindump_content" | head -n 1 | sed 's/^- *//')" >> "$daily_file"
+        fi
+    else
+        echo "<!-- Review will be added by /daily-review command -->" >> "$daily_file"
+    fi
+
     echo "Added review section to $daily_file"
-    echo "Please run this command again or manually update the review section with your daily summary."
 fi
 ```
