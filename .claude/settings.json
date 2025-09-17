@@ -1,0 +1,9 @@
+{
+  "permissions": {
+    "allow": [
+      "{\n  \"allowedTools\": [\n    \"Read\",\n    \"Write\",\n    \"Bash(npm:*)\",\n    \"Bash(git:*)\"\n  ]\n}"
+    ],
+    "deny": [],
+    "ask": []
+  }
+}
