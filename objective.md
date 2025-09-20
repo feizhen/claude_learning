@@ -84,3 +84,18 @@ LangChain 与 LlamaIndex 官方文档与示例工程
 - [Andrej Karpathy](https://www.youtube.com/@AndrejKarpathy) 学习大模型相关的基础理论知识
 
 - [Mckay Wrigley](https://www.youtube.com/@realmckaywrigley) I build & teach AI stuff. 可以跟着一起实践一些
+
+## newsletter
+
+- [AI Valley](https://www.theaivalley.com/) 总的来说，如果 AI 新闻不知道看什么，就看 AI Valley 吧
+
+  - 最新的 AI 新闻汇总
+  - TRENDING TOOLS 一些流行的小工具
+  - THINK PIECES / BRAIN BOOST 值得看的深度长文
+  - THE VALLEY GEMS 推特上值得关注的 AI 相关的帖子
+
+- [Every]()
+
+- [The Keyword](https://blog.google/) Google 官方博客
+
+- [AINews]()

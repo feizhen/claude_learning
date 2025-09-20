@@ -1,7 +1,7 @@
 {
   "permissions": {
     "allow": [
-      "{\n  \"allowedTools\": [\n    \"Read\",\n    \"Write\",\n    \"Bash(npm:*)\",\n    \"Bash(git:*)\"\n  ]\n}"
+      "{\n  \"allowedTools\": [\n    \"Read\",\n    \"Write\",\n    \"Edit\",\n    \"MultiEdit\",\n    \"Glob\",\n    \"Grep\",\n    \"Bash(npm:*)\",\n    \"Bash(git:*)\",\n    \"Bash(ls:*)\",\n    \"Bash(mkdir:*)\",\n    \"Bash(mv:*)\",\n    \"Bash(cp:*)\",\n    \"Bash(rm:*)\",\n    \"Bash(find:*)\",\n    \"Bash(grep:*)\",\n    \"Bash(cat:*)\",\n    \"Bash(echo:*)\",\n    \"Bash(touch:*)\"\n  ]\n}"
     ],
     "deny": [],
     "ask": []
