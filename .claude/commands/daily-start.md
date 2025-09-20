@@ -48,6 +48,9 @@ if [ ! -f "$daily_file" ]; then
 ## braindump
 
 
+## output
+
+
 EOF
 
     echo "Created daily file: $daily_file"
