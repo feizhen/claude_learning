@@ -67,6 +67,11 @@ LangChain 与 LlamaIndex 官方文档与示例工程
 财务：利用周末时间做小额 freelancing / 咨询（比如 AI 产品设计、agent 上线咨询）可以既积累商业案例又带来收入。
 健康：把每周 3 次、每次 30–45 分钟的有氧+力量训练写进日程，确保 23:00 前睡觉（或按你目标）。
 
+必现完成的目标：
+
+- 完成 Andrej Karpathy 的课程
+- 上架一款 app 应用
+
 # Resources
 
 ## podcast
