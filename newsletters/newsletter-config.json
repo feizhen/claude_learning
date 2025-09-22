@@ -1,0 +1,20 @@
+{
+  "gmail": {
+    "username": "${GMAIL_USERNAME}",
+    "password": "${GMAIL_APP_PASSWORD}",
+    "server": "imap.gmail.com",
+    "port": 993
+  },
+  "filters": {
+    "newsletter_patterns": ["newsletter", "digest", "weekly", "noreply"],
+    "trusted_senders": [
+      "aivalley@mail.beehiiv.com"
+    ],
+    "exclude_patterns": ["promotion", "sale", "offer", "广告", "推广"]
+  },
+  "output": {
+    "max_content_length": 500,
+    "include_links": true,
+    "format": "markdown"
+  }
+}
