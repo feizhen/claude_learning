@@ -44,8 +44,14 @@ if [ ! -f "$daily_file" ]; then
 
 ## newsletter
 
+[] AI Vally
+
+[] The Keyword
 
 ## braindump
+
+
+## output
 
 
 EOF

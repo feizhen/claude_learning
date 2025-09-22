@@ -14,12 +14,14 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ### 自定义命令系统
 
-项目包含四个核心自定义命令（位于 `.claude/commands/`）：
+项目包含六个核心自定义命令（位于 `.claude/commands/`）：
 
 - **`/week-start`**: 创建周文件夹结构 (`weeks/YYYY_MMDD-MMDD/`)
 - **`/daily-start`**: 创建每日日记文件，包含预设模板
 - **`/daily-review`**: 添加每日总结部分（可配合 AI 分析）
 - **`/week-review`**: 汇总整周内容，生成周度回顾
+- **`/milestone`**: 生成学习进度和习惯分析报告
+- **`/git-push`**: 自动化 git 提交和推送流程
 
 ### 推荐工作流程
 
@@ -54,6 +56,10 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 ## braindump
 
 [想法、思考、随记]
+
+## output
+
+[学习输出内容/项目成果]
 
 ## review
 
@@ -95,3 +101,36 @@ export LC_ALL=C
 - **反思驱动**: 内置回顾和总结流程
 - **AI 集成**: 利用 Claude 进行内容分析
 - **可移植性**: 纯 markdown 文件格式
+
+## 关键文件说明
+
+### 学习规划文件
+- **`objective.md`**: 详细的12个月学习计划和阶段性目标
+- **`milestone.md`**: 学习进度跟踪和习惯分析报告
+
+### 常用操作
+
+#### 开始新的学习周期
+```bash
+/week-start    # 创建周文件夹
+/daily-start   # 创建今日日记
+```
+
+#### 每日维护流程
+```bash
+/daily-review  # 添加每日总结
+/git-push      # 提交更改（如需要）
+```
+
+#### 周期性回顾
+```bash
+/week-review   # 创建周总结
+/milestone     # 生成学习进度报告
+```
+
+### 版本控制集成
+
+项目支持自动 Git 操作：
+- 使用 `/git-push` 命令自动提交和推送更改
+- 所有学习文件都应纳入版本控制以便追踪进度
+- 建议定期备份到远程仓库

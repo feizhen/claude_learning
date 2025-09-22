@@ -107,6 +107,15 @@ EOF
             fi
         fi
 
+        if grep -q "## output" "$file"; then
+            output_content=$(sed -n '/## output/,/## [a-z]/p' "$file" | sed '$d' | tail -n +2 | sed '/^$/d')
+            if [ ! -z "$output_content" ]; then
+                echo "**Learning Output:**" >> "$review_file"
+                echo "$output_content" >> "$review_file"
+                echo "" >> "$review_file"
+            fi
+        fi
+
         if grep -q "## review" "$file"; then
             review_content=$(sed -n '/## review/,/## [a-z]/p' "$file" | sed '$d' | tail -n +2 | sed '/^$/d' | grep -v "<!-- Review will be added")
             if [ ! -z "$review_content" ]; then

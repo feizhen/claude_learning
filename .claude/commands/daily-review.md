@@ -40,6 +40,7 @@ echo "Reading and analyzing content from: $daily_file"
 video_content=$(sed -n '/^## video$/,/^## /p' "$daily_file" | sed '$d' | tail -n +2)
 newsletter_content=$(sed -n '/^## newsletter$/,/^## /p' "$daily_file" | sed '$d' | tail -n +2)
 braindump_content=$(sed -n '/^## braindump$/,/^## /p' "$daily_file" | sed '$d' | tail -n +2)
+output_content=$(sed -n '/^## output$/,/^## /p' "$daily_file" | sed '$d' | tail -n +2)
 
 # Check if review section already exists
 if grep -q "## review" "$daily_file"; then
@@ -53,7 +54,7 @@ else
     echo "" >> "$daily_file"
 
     # Generate automatic review based on content
-    if [ -n "$video_content" ] || [ -n "$newsletter_content" ] || [ -n "$braindump_content" ]; then
+    if [ -n "$video_content" ] || [ -n "$newsletter_content" ] || [ -n "$braindump_content" ] || [ -n "$output_content" ]; then
         echo "Today's activities summary:" >> "$daily_file"
 
         if [ -n "$video_content" ]; then
@@ -66,6 +67,10 @@ else
 
         if [ -n "$braindump_content" ]; then
             echo "- **Project work**: $(echo "$braindump_content" | head -n 1 | sed 's/^- *//')" >> "$daily_file"
+        fi
+
+        if [ -n "$output_content" ]; then
+            echo "- **Learning output**: Created and shared learning content" >> "$daily_file"
         fi
     else
         echo "<!-- Review will be added by /daily-review command -->" >> "$daily_file"
