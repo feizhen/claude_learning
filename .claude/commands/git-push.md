@@ -10,16 +10,38 @@ export LC_ALL=C
 
 echo "🔍 检查当前 git 状态..."
 
-# 检查是否有未暂存的修改
-if ! git diff --quiet || ! git diff --cached --quiet; then
+# 获取当前状态
+git_status=$(git status --porcelain)
+
+# 检查是否有任何修改（包括新文件、修改的文件、删除的文件）
+if [ -n "$git_status" ]; then
     echo "📋 发现以下修改："
     git status --short
     echo ""
 
-    # 显示详细修改内容
-    echo "📖 详细修改内容："
-    git diff --name-status
-    echo ""
+    # 显示未跟踪的文件
+    untracked_files=$(git ls-files --others --exclude-standard)
+    if [ -n "$untracked_files" ]; then
+        echo "📁 未跟踪的文件："
+        echo "$untracked_files"
+        echo ""
+    fi
+
+    # 显示已修改文件的详细内容
+    modified_files=$(git diff --name-only)
+    if [ -n "$modified_files" ]; then
+        echo "📖 已修改文件的详细变更："
+        git diff --name-status
+        echo ""
+    fi
+
+    # 显示已暂存文件
+    staged_files=$(git diff --cached --name-only)
+    if [ -n "$staged_files" ]; then
+        echo "📋 已暂存的文件："
+        git diff --cached --name-status
+        echo ""
+    fi
 
     # 添加所有修改到暂存区
     echo "➕ 添加所有修改到暂存区..."
