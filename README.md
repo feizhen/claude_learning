@@ -20,12 +20,16 @@
 
 ### 自定义命令系统
 
-项目包含四个核心自定义命令（位于 `.claude/commands/`）：
+项目包含八个核心自定义命令（位于 `.claude/commands/`）：
 
 - **`/week-start`**: 创建周文件夹结构 (`weeks/YYYY_MMDD-MMDD/`)
 - **`/daily-start`**: 创建每日日记文件，包含预设模板
 - **`/daily-review`**: 添加每日总结部分（可配合 AI 分析）
 - **`/week-review`**: 汇总整周内容，生成周度回顾
+- **`/milestone`**: 生成学习进度和习惯分析报告
+- **`/insight`**: 从学习记录中提取灵感，生成社交媒体创作内容建议
+- **`/newsletter-fetch`**: 获取和整理新闻通讯内容
+- **`/git-push`**: 自动化 git 提交和推送流程
 
 ### 日记模板结构
 
