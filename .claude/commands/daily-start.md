@@ -14,14 +14,14 @@ dow=$(date +%u)
 # Calculate days to Monday (if today is Monday, days_to_monday=0)
 days_to_monday=$((dow - 1))
 
-# Get Monday's date using simple date arithmetic
-monday=$(date -v-${days_to_monday}d +%Y-%m-%d)
-monday_formatted=$(date -v-${days_to_monday}d +%m%d)
-monday_year=$(date -v-${days_to_monday}d +%Y)
+# Get Monday's date using GNU date arithmetic
+monday=$(date -d "-${days_to_monday} days" +%Y-%m-%d)
+monday_formatted=$(date -d "-${days_to_monday} days" +%m%d)
+monday_year=$(date -d "-${days_to_monday} days" +%Y)
 
 # Get Sunday's date (6 days after Monday)
 sunday_days=$((6 - days_to_monday))
-sunday_formatted=$(date -v+${sunday_days}d +%m%d)
+sunday_formatted=$(date -d "+${sunday_days} days" +%m%d)
 
 folder_name="${monday_year}_${monday_formatted}-${sunday_formatted}"
 
