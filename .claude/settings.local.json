@@ -3,6 +3,7 @@
     "allow": [
       "Bash(git fetch:*)",
       "Bash(git add:*)",
+      "Bash(git pull:*)",
       "Bash(git rebase:*)"
     ],
     "deny": [],
