@@ -71,9 +71,6 @@ def create_daily_file():
 
 ## newsletter
 
-[] AI Valley
-
-[] The Keyword
 
 ## braindump
 
